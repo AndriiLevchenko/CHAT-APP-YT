@@ -1,4 +1,4 @@
-import Userchat from "../models/user.model.js";
+import Userchat from "../models/userchat.model.js";
 import bcrypt from 'bcryptjs';
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 
@@ -53,6 +53,7 @@ export const login = async (req, res)=> {
    try {
        const {username, password} = req.body;
        const user = await Userchat.findOne({username});
+       //console.log("user = ", user);
        const isPasswordCorrect = await bcrypt.compare(password, user?.password || '');
        if(!user || !isPasswordCorrect) {
            return res.status(400).json({error: 'Invalid username or password'})
@@ -72,6 +73,7 @@ export const login = async (req, res)=> {
 
 export const logout =(req, res)=> {
     try {
+        console.log('Logout in Auth controller staert');
         res.cookie('jwt', '', {maxAge: 0});
         res.status(200).json({message: 'Logged out successfully'});
     } catch (error) {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Userchat from "./user.model.js";
+import Userchat from "./userchat.model.js";
 
 const conversationSchema = new mongoose.Schema({
     participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'Userchat'}],

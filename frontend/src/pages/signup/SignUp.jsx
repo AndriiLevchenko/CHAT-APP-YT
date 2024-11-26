@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-// import GenderCheckbox from "./GenderCheckbox";
+import GenderCheckbox from "./GenderCheckbox";
 import { useState } from "react";
-// import useSignup from "../../hooks/useSignup";
+import useSignup from "../../hooks/useSignup.js";
 
 const SignUp = () => {
     const [inputs, setInputs] = useState({
@@ -12,15 +12,16 @@ const SignUp = () => {
         gender: "",
     });
 
-    // const { loading, signup } = useSignup();
+    const { loading, signup } = useSignup();
 
-    // const handleCheckboxChange = (gender) => {
-    //     setInputs({ ...inputs, gender });
-    // };
+    const handleCheckboxChange = (gender) => {
+        setInputs({ ...inputs, gender });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // await signup(inputs);
+        console.log("inputs = ", inputs);
+        await signup(inputs);
     };
 
     return (
@@ -33,11 +34,11 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className='label p-2'>
-                            <span className='text-base label-text'>Full Name</span>
+                            <span className='text-base text-white'>Full Name</span>
                         </label>
                         <input
                             type='text'
-                            placeholder='John Doe'
+                            placeholder='Enter full name'
                             className='w-full input input-bordered  h-10'
                             value={inputs.fullName}
                             onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
@@ -46,11 +47,11 @@ const SignUp = () => {
 
                     <div>
                         <label className='label p-2 '>
-                            <span className='text-base label-text'>Username</span>
+                            <span className='text-base text-white'>Username</span>
                         </label>
                         <input
                             type='text'
-                            placeholder='johndoe'
+                            placeholder='Enter Email-username'
                             className='w-full input input-bordered h-10'
                             value={inputs.username}
                             onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
@@ -59,7 +60,7 @@ const SignUp = () => {
 
                     <div>
                         <label className='label'>
-                            <span className='text-base label-text'>Password</span>
+                            <span className='text-base text-white'>Password</span>
                         </label>
                         <input
                             type='password'
@@ -72,7 +73,7 @@ const SignUp = () => {
 
                     <div>
                         <label className='label'>
-                            <span className='text-base label-text'>Confirm Password</span>
+                            <span className='text-base text-white'>Confirm Password</span>
                         </label>
                         <input
                             type='password'
@@ -83,21 +84,21 @@ const SignUp = () => {
                         />
                     </div>
 
-                    {/*<GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />*/}
+                    <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
 
-                    {/*<Link*/}
-                    {/*    to={"/login"}*/}
-                    {/*    className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block'*/}
-                    {/*    href='#'*/}
-                    {/*>*/}
-                    {/*    Already have an account?*/}
-                    {/*</Link>*/}
+                    <Link
+                        to={"/login"}
+                        className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block text-stone-500'
+                        href='#'
+                    >
+                        Already have an account?
+                    </Link>
 
-                    {/*<div>*/}
-                    {/*    <button className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading}>*/}
-                    {/*        {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
+                    <div>
+                        <button className='btn btn-block btn-sm mt-2 border border-slate-700 h-10' disabled={loading}>
+                            {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
